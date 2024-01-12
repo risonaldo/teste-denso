@@ -23,9 +23,9 @@ export class ProdutosService {
         HttpStatus.BAD_REQUEST,
       );
     }
-    const novaCategoria = await this.produtoRepository.save(produto);
+    const novaProduto = await this.produtoRepository.save(produto);
 
-    return novaCategoria;
+    return novaProduto;
   }
 
   async findAll(): Promise<Produto[]> {

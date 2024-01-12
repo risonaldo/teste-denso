@@ -22,6 +22,7 @@ export class UsuariosService {
   async listar(): Promise<Usuario[]> {
     return await this.usuarioRepository.find();
   }
+  
 
   async signIn(email, senha) {
     const user = await this.usuarioRepository.findOne({ where: { email } });
