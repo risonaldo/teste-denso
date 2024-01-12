@@ -1,0 +1,5 @@
+Criar entidade
+npm run typeorm:migrate --name=entidade
+
+criar migrate 
+npm run typeorm:run
