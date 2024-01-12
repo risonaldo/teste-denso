@@ -5,10 +5,8 @@ import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 export class Usuario {
   @PrimaryGeneratedColumn('increment')
   id: number;
-  @Column({ type: 'varchar', length: 255 })
-  nome: string;
   @Column({ type: 'varchar', length: 100 })
   email: string;
-  @Column({ type: 'varchar', length: 50 })
+  @Column({ type: 'varchar' })
   senha: string;
 }

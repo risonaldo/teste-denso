@@ -1,21 +1,24 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CategoriasService } from 'src/categorias/services/categorias.service';
 import { Repository } from 'typeorm';
-import { Produto } from '../models/entities/produto.entity';
 import { CreateProdutoDto } from '../models/dto/create-produto.dto';
+import { Produto } from '../models/entities/produto.entity';
 
 @Injectable()
 export class ProdutosService {
   constructor(
     @InjectRepository(Produto)
     private readonly produtoRepository: Repository<Produto>,
+    // private readonly categoriaService: CategoriasService
   ) {}
   async create(produto: CreateProdutoDto): Promise<Produto> {
     const nomeProduto = await this.produtoRepository.findOne({
       where: produto,
-      relations: ['categorias']
+      relations: ['categorias'],
     });
+
 
     if (nomeProduto) {
       throw new HttpException(
@@ -34,18 +37,18 @@ export class ProdutosService {
   }
 
   async remove(id: number) {
-    const nomeCategoria = await this.produtoRepository.findOne({
+    const nomeProduto = await this.produtoRepository.findOne({
       where: { id: id },
     });
 
-    if (!nomeCategoria) {
+    if (!nomeProduto) {
       throw new HttpException(
-        `A categoria com ${id} não existe`,
+        `O Produto com ${id} não existe`,
         HttpStatus.BAD_REQUEST,
       );
     }
 
     await this.produtoRepository.delete(id);
-    return { message: 'Categoria removida com sucesso' };
+    return { message: 'Produto removida com sucesso' };
   }
 }

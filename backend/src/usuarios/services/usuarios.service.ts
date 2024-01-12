@@ -7,6 +7,7 @@ import { Usuario } from '../models/entities/usuario.entity';
 import { JwtService } from '@nestjs/jwt';
 import { Repository } from 'typeorm';
 import { jwtConstants } from '../constant/jwtConstants';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsuariosService {
@@ -16,17 +17,24 @@ export class UsuariosService {
     private jwtService: JwtService,
   ) {}
   async create(usuario: CreateUsuarioDto) {
-    return await this.usuarioRepository.save(usuario);
+    const { nome, email, senha } = usuario;
+    const hash = await bcrypt.hash(senha, 8);
+
+    return await this.usuarioRepository.save({
+      nome,
+      email,
+      senha: hash,
+    });
   }
 
   async listar(): Promise<Usuario[]> {
     return await this.usuarioRepository.find();
   }
-  
 
   async signIn(email, senha) {
     const user = await this.usuarioRepository.findOne({ where: { email } });
-    if (user?.senha !== senha) {
+    const passwordMatch = await bcrypt.compare(senha, user.senha);
+    if (!passwordMatch) {
       throw new UnauthorizedException();
     }
     const payload = { username: user.email, sub: user.id };
