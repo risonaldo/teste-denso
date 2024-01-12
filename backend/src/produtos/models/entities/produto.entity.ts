@@ -19,7 +19,7 @@ export class Produto {
   @Column({ type: 'int' })
   partNumber: string;
 
-  @ManyToOne(() => Categoria, (categoria) => categoria.produto)
+  @ManyToOne(() => Categoria, (categoria) => categoria.produtos)
   @JoinColumn({ name: 'categoria_id', referencedColumnName: 'id' })
-  categoria: Categoria;
+  categorias: Categoria;
 }
