@@ -1,7 +1,6 @@
 /* eslint-disable prettier/prettier */
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CategoriasService } from 'src/categorias/services/categorias.service';
 import { Repository } from 'typeorm';
 import { CreateProdutoDto } from '../models/dto/create-produto.dto';
 import { Produto } from '../models/entities/produto.entity';
@@ -11,7 +10,7 @@ export class ProdutosService {
   constructor(
     @InjectRepository(Produto)
     private readonly produtoRepository: Repository<Produto>,
-    // private readonly categoriaService: CategoriasService
+
   ) {}
   async create(produto: CreateProdutoDto): Promise<Produto> {
     const nomeProduto = await this.produtoRepository.findOne({
