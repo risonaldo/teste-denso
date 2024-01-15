@@ -1,0 +1,16 @@
+{
+    "categories": [
+      { "id": 1, "name": "Eletrônicos" },
+      { "id": 2, "name": "Roupas" },
+      { "id": 3, "name": "Livros" }
+    ],
+    "products": [
+      { "id": 1, "name": "Smartphone", "categoryId": 1 },
+      { "id": 2, "name": "Laptop", "categoryId": 1 },
+      { "id": 3, "name": "Camiseta", "categoryId": 2 },
+      { "id": 4, "name": "Calça Jeans", "categoryId": 2 },
+      { "id": 5, "name": "JavaScript: The Good Parts", "categoryId": 3 },
+      { "id": 6, "name": "Clean Code", "categoryId": 3 }
+    ]
+  }
+  
